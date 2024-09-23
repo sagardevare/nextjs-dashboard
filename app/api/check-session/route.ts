@@ -16,11 +16,13 @@ import { NextResponse } from 'next/server';
 
 import { getSession } from '@auth0/nextjs-auth0/edge';
 
-const GET = async function GET(req) {
+const GET = async function GET(req: any) {
   const res = new NextResponse();
   const session = await getSession();
   console.log(session?.accessTokenExpiresAt);
-  session.user.sid = "destroyed";
+  /* if(session !== null)
+    session.user.sid = "destroyed"; */
+  
   return NextResponse.json(session?.user);
 };
 
