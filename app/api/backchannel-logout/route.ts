@@ -8,8 +8,8 @@ export async function POST(req:NextRequest) {
     const body = await req.json();
     
     console.log(body);
-    const logouttoken = req?.body?.logout_token;
-    console.log(logouttoken);
+    /* const logouttoken = req?.body?.logout_token;
+    console.log(logouttoken); */
     
     // Call the middleware to validate the logout token
      const res = new NextResponse();
