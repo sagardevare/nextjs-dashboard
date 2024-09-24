@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req:NextRequest) {
   try {
     console.log("backchannel endpoint hit...")
-    const body = await req.json();
+    //const body = await req.json();
     
-    console.log(body);
+    console.log(req);
     /* const logouttoken = req?.body?.logout_token;
     console.log(logouttoken); */
     
@@ -22,7 +22,7 @@ export async function POST(req:NextRequest) {
 
     // Access the logout token
     const { logoutToken } = (req as any);
-    
+    console.log(logoutToken);
     // Delete user session using `sub` or `sid`
     //await deleteUserSessions(logoutToken.sub, logoutToken.sid);
     console.log("Session deleted")
