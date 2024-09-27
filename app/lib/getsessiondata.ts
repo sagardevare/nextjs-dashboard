@@ -85,7 +85,7 @@ export async function updateSession(sessionId: string, isBackChannelLoggedOut: b
     // SQL query to update session data
     const result = await sql`
       UPDATE user_sessions
-      SET is_backchannel_logged_out = ${isBackChannelLoggedOut}
+      SET is_back_channel_logged_out = ${isBackChannelLoggedOut}
       WHERE session_id = ${sessionId}
     `;
     return result;
