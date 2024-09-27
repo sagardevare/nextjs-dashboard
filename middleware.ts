@@ -13,6 +13,14 @@ import { getSession } from '@auth0/nextjs-auth0/edge'; // Note the /edge import
 import { storeSession, getSessiondatabase } from './app/lib/getsessiondata';
 
 export async function middleware(req:any) {
+
+  const { pathname } = req.nextUrl;
+
+  // Exclude /api/auth/logout from the middleware
+  if (pathname === '/api/auth/logout') {
+    return NextResponse.next(); // Bypass middleware for this path
+  }
+
   const res = new NextResponse();
   const session = await getSession(req, res);
 
@@ -20,7 +28,7 @@ export async function middleware(req:any) {
   console.log(session?.user)
 
   if (!session?.user) {
-    const redirectUrl = new URL('/api/auth/login', req.url); // Construct the URL
+    const redirectUrl = new URL('/api/auth/login?returnTo=/dashboard', req.url); // Construct the URL
     return NextResponse.redirect(redirectUrl, 302); // Use a 302 status code for redirection
   }
 
@@ -31,7 +39,7 @@ export async function middleware(req:any) {
 
   if(sessionData && (sessionData['is_back_channel_logged_out'] == true)){
     console.log("inside is_back_channel_logged_out")
-    return NextResponse.redirect(new URL('/api/auth/logout',req.url));
+    return NextResponse.redirect(new URL('/api/auth/logout',req.url), 302);
   }
     
 
